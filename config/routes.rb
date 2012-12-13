@@ -1,5 +1,18 @@
 BookmarkApp::Application.routes.draw do
+  get "static_pages/home"
+  get "users/new"
+  get "static_pages/help"
+  root to: 'static_pages#home'
+  #root to: 'bookmarks#index'
+  
   resources :bookmarks
+  resources :users
+  resources :sessions, only: [:new, :create, :destroy]
+
+  #match '/bookmark' to: 'bookmark#index'
+  match '/signup',  to: 'users#new'
+  match '/signin',  to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
